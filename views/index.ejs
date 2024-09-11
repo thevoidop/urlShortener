@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Shorten Your URLs</title>
+        <link
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <style>
+            body {
+                padding-top: 20px;
+            }
+            .container {
+                max-width: 800px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <h1 class="text-center">URL Shortener</h1>
+            <hr />
+
+            <% if (locals.id) { %>
+            <div class="alert alert-success" role="alert">
+                URL Generated:
+                <a href="http://localhost:8001/url/<%= id %>" target="_blank"
+                    >http://localhost:8001/url/<%= id %></a
+                >
+            </div>
+            <% } %>
+
+            <div class="mb-4">
+                <form method="post" action="/url">
+                    <div class="form-group">
+                        <label for="url">Enter URL</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="url"
+                            id="url"
+                            autofocus
+                            placeholder="https://www.example.com"
+                        />
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        Generate
+                    </button>
+                </form>
+            </div>
+
+            <% if (locals.urls) { %>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>S. No.</th>
+                            <th>Short ID</th>
+                            <th>Redirect</th>
+                            <th>Clicks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% urls.forEach((url, index) => { %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td><%= url.shortID %></td>
+                            <td>
+                                <a href="<%= url.redirectURL %>" target="_blank"
+                                    ><%= url.redirectURL %></a
+                                >
+                            </td>
+                            <td><%= url.visitHistory.length %></td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+            <% } %>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+</html>
