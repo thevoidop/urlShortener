@@ -18,6 +18,10 @@ connectMongoDB(`${process.env.MONGO_URI}`).then(() =>
     console.log("MongoDB Connected!")
 );
 
+app.get("/ping", (req, res) => {
+    res.status(200).send("Server is awake!");
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
