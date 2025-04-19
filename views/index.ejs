@@ -26,9 +26,12 @@
             <% if (locals.id) { %>
             <div class="alert alert-success" role="alert">
                 URL Generated:
-                <a href="http://localhost:8001/url/<%= id %>" target="_blank"
-                    >http://localhost:8001/url/<%= id %></a
+                <a
+                    href="<%= process.env.BASE_URL %>/url/<%= id %>"
+                    target="_blank"
                 >
+                    <%= process.env.BASE_URL %>/url/<%= id %>
+                </a>
             </div>
             <% } %>
 
