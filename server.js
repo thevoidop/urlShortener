@@ -1,4 +1,5 @@
 const express = require("express");
+const process_req = require('process');
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const URL = require("./models/url");
@@ -10,8 +11,8 @@ const staticRoute = require("./routes/staticRouter");
 const userRoute = require("./routes/user");
 
 const app = express();
-const port = 8001;
-connectMongoDB("mongodb://localhost:27017/urlShortener").then(() =>
+const port = process.env.PORT || 4000;
+connectMongoDB(`${process.env.MONGO_URI}`).then(() =>
     console.log("MongoDB Connected!")
 );
 
